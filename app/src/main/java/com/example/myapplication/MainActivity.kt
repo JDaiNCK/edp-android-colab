@@ -82,20 +82,20 @@ fun BusinessCard() {
     }
 }
 
-@Composable
-fun ContactRow(icon: ImageVector, label: String) {
-    Row(
-        modifier = Modifier
-            .padding(vertical = 6.dp)
-            .clickable{},
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(icon, contentDescription = null,
-            tint = Color(0xFF771C1B))
-        Spacer(Modifier.width(8.dp))
-        Text(label)
-    }
-}
+//@Composable
+//fun ContactRow(icon: ImageVector, label: String) {
+//    Row(
+//        modifier = Modifier
+//            .padding(vertical = 6.dp)
+//            .clickable{},
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        Icon(icon, contentDescription = null,
+//            tint = Color(0xFF771C1B))
+//        Spacer(Modifier.width(8.dp))
+//        Text(label)
+//    }
+//}
 
 @Preview(name = "Card - Light", showBackground = true, widthDp = 360)
 @Composable
