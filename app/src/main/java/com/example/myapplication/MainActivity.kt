@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import androidx.compose.material3.Icon
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,9 +24,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.onClick
@@ -88,7 +92,6 @@ fun BusinessCard(modifier: Modifier = Modifier) {
             colors = CardDefaults.cardColors(containerColor = cardBackgroundColor)
         ) {
             Column {
-                // Header section with decorative blobs
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -116,7 +119,6 @@ fun BusinessCard(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .padding(horizontal = 24.dp)
                 ) {
-                    // Circular avatar with clip + border
                     Box(
                         modifier = Modifier
                             .offset(y = (-50).dp)
@@ -137,14 +139,12 @@ fun BusinessCard(modifier: Modifier = Modifier) {
                     }
 
                     Column(modifier = Modifier.offset(y = (-40).dp)) {
-                        // Bold name in larger sp size
                         Text(
                             text = "Josh Daniel Uy",
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Bold,
                             color = textColor
                         )
-                        // Subtitle below it
                         Text(
                             text = "Quality Assurance",
                             fontSize = 16.sp,
@@ -153,9 +153,8 @@ fun BusinessCard(modifier: Modifier = Modifier) {
 
                         Spacer(Modifier.height(24.dp))
 
-                        // Reusable ContactRow composable
                         ContactRow(
-                            iconLabel = "P",
+                            icon = Icons.Default.Phone,
                             label = "Phone",
                             value = "09452365444",
                             accentColor = accentColor,
@@ -163,7 +162,7 @@ fun BusinessCard(modifier: Modifier = Modifier) {
                             onClickLabel = "Call Josh"
                         )
                         ContactRow(
-                            iconLabel = "E",
+                            icon = Icons.Default.Email,
                             label = "Email",
                             value = "juy62610@liceo.edu.ph",
                             accentColor = accentColor,
@@ -179,7 +178,7 @@ fun BusinessCard(modifier: Modifier = Modifier) {
 
 @Composable
 fun ContactRow(
-    iconLabel: String,
+    icon: ImageVector,
     label: String,
     value: String,
     accentColor: Color,
@@ -195,7 +194,6 @@ fun ContactRow(
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Icon replacement (initials/label box)
         Box(
             modifier = Modifier
                 .size(40.dp)
@@ -203,10 +201,11 @@ fun ContactRow(
                 .background(accentColor.copy(alpha = 0.1f)),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = iconLabel,
-                color = accentColor,
-                fontWeight = FontWeight.Bold
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = accentColor,
+                modifier = Modifier.size(20.dp)
             )
         }
         
