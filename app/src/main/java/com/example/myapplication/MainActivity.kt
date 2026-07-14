@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,9 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,8 +42,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    BusinessCard(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -57,9 +52,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BusinessCard() {
+fun BusinessCard(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFF4F2F1)),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,35 +67,46 @@ fun BusinessCard() {
             modifier = Modifier
                 .size(120.dp)
                 .clip(CircleShape)
-                .border(2.dp, Color(0xFF771C1B),CircleShape)
+                .border(2.dp, Color(0xFF771C1B), CircleShape)
         )
         Spacer(Modifier.height(16.dp))
-        Text("Josh Daniel Uy", fontSize = 24.sp,
-            fontWeight = FontWeight.Bold, color = Color(0xFF771C1B))
-        Text("Quality Assurance", fontSize = 16.sp,
-            color = Color.DarkGray)
+        Text(
+            text = "Josh Daniel Uy",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF771C1B)
+        )
+        Text(
+            text = "Quality Assurance",
+            fontSize = 16.sp,
+            color = Color.DarkGray
+        )
+
+        Spacer(Modifier.height(24.dp))
+
+        ContactRow(label = "09452365444 / +639452365444")
+        ContactRow(label = "juy62610@liceo.edu.ph")
     }
 }
 
-//@Composable
-//fun ContactRow(icon: ImageVector, label: String) {
-//    Row(
-//        modifier = Modifier
-//            .padding(vertical = 6.dp)
-//            .clickable{},
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        Icon(icon, contentDescription = null,
-//            tint = Color(0xFF771C1B))
-//        Spacer(Modifier.width(8.dp))
-//        Text(label)
-//    }
-//}
+@Composable
+fun ContactRow(label: String) {
+    Row(
+        modifier = Modifier
+            .padding(vertical = 6.dp)
+            .clickable { /* Handle click event later */ },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label)
+    }
+}
 
 @Preview(name = "Card - Light", showBackground = true, widthDp = 360)
 @Composable
 fun BusinessCardPreview() {
-    BusinessCard()
+    MyApplicationTheme {
+        BusinessCard()
+    }
 }
 
 @Composable
@@ -109,7 +115,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(all = 16.dp)
             .fillMaxWidth()
-            .background(color= MaterialTheme.colorScheme.onSurfaceVariant),
+            .background(color = MaterialTheme.colorScheme.onSurfaceVariant),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
@@ -118,7 +124,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxWidth()
         )
     }
-
 }
 
 @Preview(showBackground = true)
