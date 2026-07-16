@@ -18,7 +18,7 @@ private val LightColors = lightColorScheme(
     secondary = LightSecondary,
     surface = LightSurface,
     onSurfaceVariant = LightOnSurfaceVariant
-) //[cite: 1]
+)
 
 private val DarkColors = darkColorScheme(
     primary = DarkPrimary,
@@ -27,16 +27,15 @@ private val DarkColors = darkColorScheme(
     secondary = DarkSecondary,
     surface = DarkSurface,
     onSurfaceVariant = DarkOnSurfaceVariant
-) //[cite: 1]
+)
 
 @Composable
 fun ProfileTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) DarkColors else LightColors //[cite: 1]
+    val colors = if (darkTheme) DarkColors else LightColors
 
-    // Customize titleLarge to be bold as specified[cite: 1]
     val typography = Typography(
         titleLarge = Typography().titleLarge.copy(fontWeight = FontWeight.Bold)
     )
@@ -44,7 +43,7 @@ fun ProfileTheme(
     MaterialTheme(
         colorScheme = colors,
         typography = typography,
-        shapes = Shapes(medium = RoundedCornerShape(16.dp)), // Cards use medium shape[cite: 1]
+        shapes = Shapes(medium = RoundedCornerShape(16.dp)),
         content = content
-    ) //[cite: 1]
+    )
 }

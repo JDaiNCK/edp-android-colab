@@ -100,12 +100,12 @@ fun ProfileScreen() {
             TopAppBar(
                 title = { Text("My Profile", style = MaterialTheme.typography.titleLarge) },
                 navigationIcon = {
-                    IconButton(onClick = { /* Navigation */ }) {
+                    IconButton(onClick = {}) {
                         Icon(Icons.Default.Menu, contentDescription = "Menu")
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Overflow */ }) {
+                    IconButton(onClick = {}) {
                         Icon(Icons.Default.MoreVert, contentDescription = "More")
                     }
                 },
@@ -115,7 +115,7 @@ fun ProfileScreen() {
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* Add */ }) {
+            FloatingActionButton(onClick = {}) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }

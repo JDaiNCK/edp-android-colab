@@ -30,7 +30,7 @@ fun ProfileScreen() {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Overflow action */ }) {
+                    IconButton(onClick = {}) {
                         Icon(Icons.Default.MoreVert, contentDescription = "More Options")
                     }
                 },
@@ -40,7 +40,7 @@ fun ProfileScreen() {
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* Add action */ }) {
+            FloatingActionButton(onClick = {}) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
@@ -51,7 +51,7 @@ fun ProfileScreen() {
                 .padding(16.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp) //[cite: 1]
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
             Box(contentAlignment = Alignment.Center) {
@@ -84,28 +84,28 @@ fun ProfileScreen() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "Ada Lovelace",
-                    style = MaterialTheme.typography.headlineSmall //[cite: 1]
+                    style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
                     text = "Android Developer",
-                    style = MaterialTheme.typography.bodyMedium, //[cite: 1]
-                    color = MaterialTheme.colorScheme.onSurfaceVariant //[cite: 1]
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp) //[cite: 1]
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Button(
-                    onClick = { /* Message action */ },
-                    modifier = Modifier.weight(1f) //[cite: 1]
+                    onClick = {},
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text("Message")
                 }
                 OutlinedButton(
-                    onClick = { /* Follow action */ },
-                    modifier = Modifier.weight(1f) //[cite: 1]
+                    onClick = {},
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text("Follow")
                 }
@@ -119,7 +119,7 @@ fun ProfileScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly //[cite: 1]
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     StatColumn(value = "128", label = "Posts")
                     StatColumn(value = "4.2k", label = "Followers")
@@ -143,14 +143,14 @@ fun ProfileScreen() {
                             contentDescription = "Email",
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                        Spacer(modifier = Modifier.width(8.dp)) //[cite: 1]
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = "ada@compute.org",
-                            style = MaterialTheme.typography.bodyMedium //[cite: 1]
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp)) // Spacer between rows[cite: 1]
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     // Location Row
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -159,10 +159,10 @@ fun ProfileScreen() {
                             contentDescription = "Location",
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                        Spacer(modifier = Modifier.width(8.dp)) //[cite: 1]
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = "London, United Kingdom",
-                            style = MaterialTheme.typography.bodyMedium //[cite: 1]
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                 }
