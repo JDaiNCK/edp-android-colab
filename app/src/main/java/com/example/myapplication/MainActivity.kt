@@ -68,7 +68,6 @@ class MainActivity : ComponentActivity() {
 fun BusinessCard(modifier: Modifier = Modifier) {
     val isDark = isSystemInDarkTheme()
 
-    // Theme-based colors
     val backgroundColor = if (isDark) Color(0xFF121212) else Color(0xFFF8F9FA)
     val cardBackgroundColor = if (isDark) Color.Black else Color.White
     val accentColor = if (isDark) Color.Red else Color(0xFF5E8AE7)
@@ -227,7 +226,6 @@ fun ContactRow(
     }
 }
 
-// Light Mode Preview
 @Preview(name = "Light Mode", showBackground = true, widthDp = 360)
 @Composable
 fun BusinessCardPreview() {
@@ -236,7 +234,6 @@ fun BusinessCardPreview() {
     }
 }
 
-// Dark Mode Preview
 @Preview(name = "Dark Mode", showBackground = true, widthDp = 360, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun BusinessCardDarkPreview() {
@@ -245,7 +242,6 @@ fun BusinessCardDarkPreview() {
     }
 }
 
-// Accessibility Preview (Font Scale)
 @Preview(name = "Large Font", showBackground = true, widthDp = 360, fontScale = 1.5f)
 @Composable
 fun BusinessCardFontPreview() {
