@@ -4,6 +4,8 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -17,25 +19,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-// --- 1. BRAND & STYLE SPECIFICATION[cite: 1] ---
-val LightPrimary = Color(0xFF771C1B)
+val LightPrimary = Color(0xFF1B2777)
 val LightOnPrimary = Color(0xFFFFFFFF)
-val LightPrimaryContainer = Color(0xFFE9C9C8)
-val LightSecondary = Color(0xFF9E4744)
-val LightSurface = Color(0xFFFFFBFF)
-val LightOnSurfaceVariant = Color(0xFF5A4D4C)
+val LightPrimaryContainer = Color(0xFFC8CBE9)
+val LightSecondary = Color(0xFF44539E)
+val LightSurface = Color(0xFFFBFBFF)
+val LightOnSurfaceVariant = Color(0xFF4C4E5A)
 
-val DarkPrimary = Color(0xFFE0A3A0)
+val DarkPrimary = Color(0xFFEE3C34)
 val DarkOnPrimary = Color(0xFF511313)
 val DarkPrimaryContainer = Color(0xFF651817)
-val DarkSecondary = Color(0xFFD49B99)
+val DarkSecondary = Color(0xFFE38681)
 val DarkSurface = Color(0xFF1A1110)
-val DarkOnSurfaceVariant = Color(0xFFC9B8B7)
+val DarkOnSurfaceVariant = Color(0xFFFFFFFF)
 
 private val LightColors = lightColorScheme(
     primary = LightPrimary,
@@ -74,7 +79,6 @@ fun ProfileTheme(
     )
 }
 
-// --- 2. MAIN ACTIVITY ENTRY POINT ---
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,45 +95,72 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// --- 3. UI LAYOUT[cite: 1] ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("My Profile", style = MaterialTheme.typography.titleLarge) },
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Default.Menu, contentDescription = "Menu")
-                    }
-                },
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "More")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
-        }
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .padding(16.dp)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+    val isDark = isSystemInDarkTheme()
+    val backgroundBrush = Brush.linearGradient(
+        colors = listOf(
+            MaterialTheme.colorScheme.primaryContainer.copy(alpha = if (isDark) 0.15f else 0.4f),
+            MaterialTheme.colorScheme.surface
+        ),
+        start = Offset(0f, 0f),
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
+    )
 
-            Box(contentAlignment = Alignment.Center) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(backgroundBrush)) {
+        
+        // Background Decorative Shapes
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            drawCircle(
+                color = if (isDark) DarkSecondary.copy(alpha = 0.05f) else LightSecondary.copy(alpha = 0.05f),
+                radius = 450f,
+                center = Offset(size.width * 0.9f, size.height * 0.15f)
+            )
+            drawCircle(
+                color = if (isDark) DarkPrimary.copy(alpha = 0.05f) else LightPrimary.copy(alpha = 0.05f),
+                radius = 350f,
+                center = Offset(size.width * 0.1f, size.height * 0.85f)
+            )
+        }
+
+        Scaffold(
+            containerColor = Color.Transparent, // Allow background to show through
+            topBar = {
+                TopAppBar(
+                    title = { Text("My Profile", style = MaterialTheme.typography.titleLarge) },
+                    navigationIcon = {
+                        IconButton(onClick = {}) {
+                            Icon(Icons.Default.Menu, contentDescription = "Menu")
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {}) {
+                            Icon(Icons.Default.MoreVert, contentDescription = "More")
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = Color.Transparent // Make top bar also blend in
+                    )
+                )
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = {}) {
+                    Icon(Icons.Default.Add, contentDescription = "Add")
+                }
+            }
+        ) { padding ->
+            Column(
+                modifier = Modifier
+                    .padding(padding)
+                    .padding(16.dp)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Box(contentAlignment = Alignment.Center) {
                 Box(
                     modifier = Modifier
                         .size(100.dp)
@@ -138,11 +169,14 @@ fun ProfileScreen() {
                         .border(2.dp, MaterialTheme.colorScheme.onSurfaceVariant, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = "Avatar",
-                        modifier = Modifier.size(60.dp),
-                        tint = MaterialTheme.colorScheme.onPrimary
+                    Image(
+                        painter = painterResource(id = R.drawable.jd),
+                        contentDescription = "Profile picture",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(90.dp)
+                            .clip(CircleShape)
+                            .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
                     )
                 }
 
@@ -158,11 +192,11 @@ fun ProfileScreen() {
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Ada Lovelace",
+                    text = "Josh Daniel I. Uy",
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
-                    text = "Android Developer",
+                    text = "Quality Assurance",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -196,9 +230,9 @@ fun ProfileScreen() {
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    StatColumn(value = "128", label = "Posts")
-                    StatColumn(value = "4.2k", label = "Followers")
-                    StatColumn(value = "96", label = "Following")
+                    StatColumn(value = "143", label = "Posts")
+                    StatColumn(value = "5k", label = "Followers")
+                    StatColumn(value = "27", label = "Following")
                 }
             }
 
@@ -219,7 +253,7 @@ fun ProfileScreen() {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "ada@compute.org",
+                            text = "juy62610@liceo.edu.ph",
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -234,7 +268,7 @@ fun ProfileScreen() {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "London, United Kingdom",
+                            text = "Cagayan de Oro City",
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -242,6 +276,7 @@ fun ProfileScreen() {
             }
         }
     }
+}
 }
 
 @Composable
