@@ -1,15 +1,10 @@
-package com.example.myapplication
+package com.example.myapplication.ui.theme
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -18,104 +13,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.profileapp.ui.theme.ProfileTheme
 
-// --- 1. BRAND & STYLE SPECIFICATION[cite: 1] ---
-val LightPrimary = Color(0xFF771C1B)
-val LightOnPrimary = Color(0xFFFFFFFF)
-val LightPrimaryContainer = Color(0xFFE9C9C8)
-val LightSecondary = Color(0xFF9E4744)
-val LightSurface = Color(0xFFFFFBFF)
-val LightOnSurfaceVariant = Color(0xFF5A4D4C)
-
-val DarkPrimary = Color(0xFFE0A3A0)
-val DarkOnPrimary = Color(0xFF511313)
-val DarkPrimaryContainer = Color(0xFF651817)
-val DarkSecondary = Color(0xFFD49B99)
-val DarkSurface = Color(0xFF1A1110)
-val DarkOnSurfaceVariant = Color(0xFFC9B8B7)
-
-private val LightColors = lightColorScheme(
-    primary = LightPrimary,
-    onPrimary = LightOnPrimary,
-    primaryContainer = LightPrimaryContainer,
-    secondary = LightSecondary,
-    surface = LightSurface,
-    onSurfaceVariant = LightOnSurfaceVariant
-)
-
-private val DarkColors = darkColorScheme(
-    primary = DarkPrimary,
-    onPrimary = DarkOnPrimary,
-    primaryContainer = DarkPrimaryContainer,
-    secondary = DarkSecondary,
-    surface = DarkSurface,
-    onSurfaceVariant = DarkOnSurfaceVariant
-)
-
-@Composable
-fun ProfileTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
-    val colors = if (darkTheme) DarkColors else LightColors
-
-    val typography = Typography(
-        titleLarge = Typography().titleLarge.copy(fontWeight = FontWeight.Bold)
-    )
-
-    MaterialTheme(
-        colorScheme = colors,
-        typography = typography,
-        shapes = Shapes(medium = RoundedCornerShape(16.dp)),
-        content = content
-    )
-}
-
-// --- 2. MAIN ACTIVITY ENTRY POINT ---
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ProfileTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.surface
-                ) {
-                    ProfileScreen()
-                }
-            }
-        }
-    }
-}
-
-// --- 3. UI LAYOUT[cite: 1] ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("My Profile", style = MaterialTheme.typography.titleLarge) },
+                title = { Text("My Profile", style = MaterialTheme.typography.titleLarge) }, //[cite: 1]
                 navigationIcon = {
-                    IconButton(onClick = { /* Navigation */ }) {
+                    IconButton(onClick = { /* Navigation action */ }) {
                         Icon(Icons.Default.Menu, contentDescription = "Menu")
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Overflow */ }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "More")
+                    IconButton(onClick = { /* Overflow action */ }) {
+                        Icon(Icons.Default.MoreVert, contentDescription = "More Options")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = MaterialTheme.colorScheme.primaryContainer //[cite: 1]
                 )
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* Add */ }) {
+            FloatingActionButton(onClick = { /* Add action */ }) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
@@ -126,7 +51,7 @@ fun ProfileScreen() {
                 .padding(16.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp) //[cite: 1]
         ) {
 
             Box(contentAlignment = Alignment.Center) {
@@ -159,28 +84,28 @@ fun ProfileScreen() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "Ada Lovelace",
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall //[cite: 1]
                 )
                 Text(
                     text = "Android Developer",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = MaterialTheme.typography.bodyMedium, //[cite: 1]
+                    color = MaterialTheme.colorScheme.onSurfaceVariant //[cite: 1]
                 )
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp) //[cite: 1]
             ) {
                 Button(
-                    onClick = { },
-                    modifier = Modifier.weight(1f)
+                    onClick = { /* Message action */ },
+                    modifier = Modifier.weight(1f) //[cite: 1]
                 ) {
                     Text("Message")
                 }
                 OutlinedButton(
-                    onClick = { },
-                    modifier = Modifier.weight(1f)
+                    onClick = { /* Follow action */ },
+                    modifier = Modifier.weight(1f) //[cite: 1]
                 ) {
                     Text("Follow")
                 }
@@ -194,7 +119,7 @@ fun ProfileScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.SpaceEvenly //[cite: 1]
                 ) {
                     StatColumn(value = "128", label = "Posts")
                     StatColumn(value = "4.2k", label = "Followers")
@@ -211,31 +136,33 @@ fun ProfileScreen() {
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
+                    // Email Row
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.Email,
                             contentDescription = "Email",
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(8.dp)) //[cite: 1]
                         Text(
                             text = "ada@compute.org",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium //[cite: 1]
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(12.dp)) // Spacer between rows[cite: 1]
 
+                    // Location Row
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.LocationOn,
                             contentDescription = "Location",
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(8.dp)) //[cite: 1]
                         Text(
                             text = "London, United Kingdom",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium //[cite: 1]
                         )
                     }
                 }
@@ -259,17 +186,17 @@ fun StatColumn(value: String, label: String) {
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenLightPreview() {
-    ProfileTheme(darkTheme = false) {
+    ProfileTheme(darkTheme = false) { //[cite: 1]
         Surface(color = MaterialTheme.colorScheme.surface) {
             ProfileScreen()
         }
     }
 }
 
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES) //[cite: 1]
 @Composable
 fun ProfileScreenDarkPreview() {
-    ProfileTheme(darkTheme = true) {
+    ProfileTheme(darkTheme = true) { //[cite: 1]
         Surface(color = MaterialTheme.colorScheme.surface) {
             ProfileScreen()
         }
